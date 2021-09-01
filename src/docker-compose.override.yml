@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  catalogdb:
+    container_name: catalogdb
+    restart: always #restarts if there is problen running containser
+    ports:
+     - "27017:27017"
+    volumes:
+     - mongo_data:/data/db   #check https://hub.docker.com/_/mongo>   docker run --name some-mongo -v /my/own/datadir:/data/db -d mongo    >for moving database records to filesystem directory
+
+  catalog.api:
+    container_name: catalog.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017" #overide catalog.api appsettings.json config .Here localhost is replased by 'catalogdb' as docker network only knows containers_names
+    depends_on:
+      - catalogdb #this api depends on catalogdb mongo database. this makes sure catalogdb is working before running catalog.api
+    ports:
+      - "8000:80" #fowarding container port to 8000. when we expose this docker image we port forward to 8000 in local computer.so other microservice ports can use 8001,8002,....
