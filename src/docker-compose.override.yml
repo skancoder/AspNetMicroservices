@@ -9,6 +9,23 @@ services:
     volumes:
      - mongo_data:/data/db   #check https://hub.docker.com/_/mongo>   docker run --name some-mongo -v /my/own/datadir:/data/db -d mongo    >for moving database records to filesystem directory
 
+  basketdb:
+    container_name: basketdb
+    restart: always
+    ports:
+     - "6379:6379"
+     #no volume, since not storing permanently
+
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+     - "8080:8000" #port recommanded is "8000:8000", but since it is exposed by catalog api, use "8080:8000"
+     - "9000:9000"
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock # copy portainer user related information into docker volume definition
+     - portainer_data:/data
+
   catalog.api:
     container_name: catalog.api
     environment:
@@ -18,3 +35,14 @@ services:
       - catalogdb #this api depends on catalogdb mongo database. this makes sure catalogdb is working before running catalog.api
     ports:
       - "8000:80" #fowarding container port to 8000. when we expose this docker image we port forward to 8000 in local computer.so other microservice ports can use 8001,8002,....
+
+  basket.api:
+    container_name: basket.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=basketdb:6367" #replace localhost with basketdb redis database
+    depends_on:
+      - basketdb
+    ports:
+      - "8001:80"
+

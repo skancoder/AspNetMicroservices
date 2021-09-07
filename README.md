@@ -315,3 +315,40 @@ or
   > Update-package -ProjectName Basket.API
 
 * CRUD basket.API from redis.
+
+### Add Docker using visual studio container orchestration support
+
+- Basket.API> right click> add> container orchestration support>Docker compose>Linux
+  - this creates docker file in Basket.API project and updates docker-compose.yml file in solution
+
+* override docker-compose yaml file
+* before running , remove existing redis image used in development as it also exposes on same port 6379, it cause port conflict error.
+
+> docker ps
+
+> docker stop {redis_containerId}
+
+> docker ps -a
+
+> docker rm {redis_containerId}
+
+- redis image completed removed
+  > docker ps -a
+
+* run
+  > docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+  - http://localhost:8001/swagger/index.html
+
+# Portainer
+
+- open source
+- manages container based applications
+- Kubernetes, Docker, Docker swarm, Azure ACI and edge environments
+- manages environments, deploy applications, monitor app performance and triage problems
+
+* less code, easy management and visualize docker components in dashboard
+* https://portainer.readthedocs.io/en/master/deployment.html
+* portainer management dashboard> https://hub.docker.com/r/portainer/portainer-ce
+* add poratiner in docker-compose.yml and its override. then run docker up
+  > docker ps
+* open http://localhost:9000/#!/init/admin and create user ("admin"|"admin1234")and login >select docker
