@@ -64,7 +64,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6367" #replace localhost with basketdb redis database
-      - "GrpcSettings:DiscountUrl=discount.grpc" #Basket.API consumes Discount.Grpc Microservice.change Url Config by env
+      - "GrpcSettings:DiscountUrl=http://discount.grpc" #Basket.API consumes Discount.Grpc Microservice.change Url Config by env
     depends_on:
       - basketdb
     ports:

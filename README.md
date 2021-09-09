@@ -418,3 +418,23 @@ or
 - right click Basket.API>Add> Connected service> Add reference gRPC>gRPC>select .proto file in Discount.Grpc, Class Type:Client Only
 
 * test this using Basket.API POST call (update basket) using debugger in both projects(updateBasket()|GetDiscount())
+
+* before testing in container to get any new changes to docker
+
+  - 1.remove all existing container & image and recreate or 2.use docker-compose up --build command (better)
+    > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d --build
+
+  * http://localhost:9000/#!/1/docker/containers
+  * http://localhost:8000/swagger/index.html
+  * http://localhost:8001/swagger/index.html
+  * http://localhost:8002/swagger/index.html
+  * http://localhost:5050/login?next=%2F >admin@aspnetrun.com|admin1234, DicountServer,discountdb
+
+* for Discout.Grpc logs, check portainer>Discout.Grpc>logs
+
+* start all
+
+  > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d
+
+* stop all
+  > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml down
