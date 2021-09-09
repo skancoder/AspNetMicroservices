@@ -352,3 +352,34 @@ or
 * add poratiner in docker-compose.yml and its override. then run docker up
   > docker ps
 * open http://localhost:9000/#!/init/admin and create user ("admin"|"admin1234")and login >select docker
+
+# Discount.API Microservice
+
+- create Asp .Net Core Web API and set port to 5002
+
+* setup Postgres DB in docker environment
+  - https://hub.docker.com/_/postgres official image
+  * add postgres in docker-compose yaml and its override file
+  * get pgAdmin management tool https://hub.docker.com/r/dpage/pgadmin4 image. pull this image to docker compose and change dockerCompose files and up
+    - open http://localhost:5050/ > 'admin@aspnetrun.com|admin1234'
+    * addNewserver>
+      - general> name:DiscountServer
+      - connection> name :discountdb, username:admin, password:admin1234
+      * this details match with discountdb in docker-compose.override.yml
+      * pgadmin>tools>Query tool>
+        CREATE TABLE Coupon(
+        ID SERIAL PRIMARY KEY NOT NULL,
+        ProductName VARCHAR(24) NOT NULL,
+        Description TEXT,
+        Amount INT
+        ); INSERT INTO Coupon (Productname,description,amount) VALUES('IPhone X','IPhone Discount',150);INSERT INTO Coupon (Productname,description,amount) VALUES('Samsung 10','Samsung Discount',100); SELECT \* FROM public.coupon ORDER BY id ASC
+  * do Discount.API crud repository pattern and test
+* create docker file in Discount.API and modify docker-compose.yml and its override
+* do initial migration of postgres in Program.cs file with retry logic.
+* check retry logic by stopping postgreddb and starting
+
+  > docker stop {postgreddb_containerId}
+
+  > docker start {postgreddb_containerId}
+
+* docker up

@@ -6,9 +6,15 @@ services:
 
   basketdb:
     image: redis:alpine #alpine is lightweight version of redis
+  
+  discountdb:
+    image: postgres #official image name >docker pull postgres 
+
+  pgadmin:
+    image: dpage/pgadmin4 #official image name from dockerHub. this is management tool for postgres sql
 
   portainer:
-    image: portainer/portainer-ce
+    image: portainer/portainer-ce #container management tool
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
@@ -22,6 +28,14 @@ services:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
 
-volumes:
+  discount.api:
+    image: ${DOCKER_REGISTRY-}discountapi
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.API/Dockerfile
+
+volumes: #volume definitions
   mongo_data:       #check https://hub.docker.com/_/mongo>   docker run --name some-mongo -v /my/own/datadir:/data/db -d mongo    >for moving database records to filesystem directory
   portainer_data:
+  postgres_data:
+  pgadmin_data:
