@@ -383,3 +383,32 @@ or
   > docker start {postgreddb_containerId}
 
 * docker up
+
+# Discount.GRPC
+
+### gRPC
+
+- Synchronous backend microservice-to-microservice communication
+- Polyglot environments
+- Low latency and high throughput communication.
+- Point-to-point real-time communication
+- Network constrained environments.
+
+### gRPC example
+
+<img src="./Images/gRPC example.png">
+
+- Create Asp .Net Core gRPC Service Project
+
+* proto file properties has
+  - Build action: 'Protobuf Compiler' >This will convert protobuf file to C# classes for client applications.
+  - gRPC Subclasses>
+    - server Only> ie, it will expose gRPC service to external system
+    - Client Only> just consume
+    * this property changes in .csproj
+    * kestral configured to HTTP2 in appsettings.json
+    * once project built , it .proto file will generate .cs classes in obj folder
+* copy everything from Discount.API to Discount.Grpc as Discount.API(just example) will not be used in final architechture.
+* gRPC project > Http2, proto file and service classes (API project> Http,controller class)
+* Discount CRUD gRPC
+* Consume Discount.Grpc from Basket.API
