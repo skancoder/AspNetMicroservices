@@ -438,3 +438,57 @@ or
 
 * stop all
   > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml down
+
+# Ordering.API Microservice
+
+- ASP .NET Core Web API application , REST API CRUD, EF Core code-first
+- Implementing DDD, CQRS and clean architecture using SOLID principles
+- Develop CQRS implementaion on command and queries using MediatR, FluentValidation and AutoMapper packages
+
+* RabbitMQ using MassTransit
+
+| Method | Request URI  | Use Case                 |
+| ------ | ------------ | ------------------------ |
+| GET    | api/v1/Order | Get Orders with username |
+
+- Get orders with username
+- Consume basketCheckout event from RabbitMQ
+- CQRS implementation with triggering OrderCommand to insert Order record
+
+## SOLID Principles
+
+- S (Single Responsibility)> A class should have only one responsiblity.
+- O (Open Close)> A Software module (class or method) should be open for extension but closed for modification
+- L (Liskov Substitution)> Objects in a program should be replacable with instances of their subtypes without altering the correctness of the program. Ie, use subclasses instead of upper classes from which they derive without needing to make any changes in code. use interfaces which can be changed by any implementaion.
+- I (Interface Segregation)> Clients should not be forced to depend on intefaces that they do not use. ie, instead of collecting all responsibilites into a single interface, create more customized interfaces.separate interfaces as per responsibilities.easy to manage
+- D (Dependency Injection)> Program to inteface, not to implementation. ie, dependencies between classes should be low as possible and especially upper classes should not depend on lower classes
+
+## DIP (Dependency Inversion Principle)
+
+high level modules should not depend on low level modules; both should depend on abstractions. Abstractions should not depend on details. Details should depend upon abstractions.
+
+<img src="./Images/dip.png">
+
+## Separation of Cencerns (SoC)
+
+a design principle for separating a computer program into distinct sections, such that each section addresses a separate concern.
+
+## Domain Driven Design (DDD) - Eric Evans
+
+1. Ubiqutios Language: one of the corner stones of DDD. We need to produce desired output of software developers and ensure continuty of these output, to be able to speak same language(must) as domain experts.Afterwards we must transfer this expertise to methods and classes that we use while developing applications by using names of the concepts used by domain experts. so, every service in the project must have response in the domain. so everyone in the project can speak common language and understand each other.
+
+2. Entity Value Objects:Any object that is collectively defined by all of it attributes is a value object. If any of the attributes change you have a new instance of a value object. This is why value objects are defined as immutable.
+   If the object is not fully defined by all of its attributes then there are a subset of attributes that make up the identity of the object. The remaining attributes can change without redefining the object. This kind of object cannot be defined at immutable.A simpler way of making the distinction is to think of value objects as static data that will never change and entities as data that evolves in your application.
+
+- Value Object: When people exchange dollar bills, they generally do not distinguish between each unique bill; they only are concerned about the face value of the dollar bill. In this context, dollar bills are Value Objects. However, the Federal Reserve may be concerned about each unique bill; in this context each bill would be an entity.
+
+- Entity: Most airlines distinguish each seat uniquely on every flight. Each seat is an entity in this context. However, Southwest Airlines, EasyJet and Ryanair do not distinguish between every seat; all seats are the same. In this context, a seat is actually a Value Object.
+
+3. Aggregate root: An AGGREGATE is a cluster of associated objects that we treat as a unit for the purpose of data changes. Each AGGREGATE has a root and a boundary. The boundary defines what is inside the AGGREGATE. The root is a single, specific ENTITY contained in the AGGREGATE.
+   The root is the only member of the AGGREGATE that outside objects are allowed to hold references to.
+
+<img src="./Images/aggregateroot.png">
+
+4. Bounded context: recommanded for complex systems which may conatain subdomains within a domain. ex: eCommerce application> Bounded context should be Order Management, Customer management, Stock management, delivery management, Payment System management,Product management, User management,.. many subdomains. these sudomains are grouped. Bounded context refers to stucture in which group of individuals most logically associated with each other in terms of rules of the aggregate root and group toogether and responsibility of the group are clearly defined. Ie, when we combine subdomains, it will reach bounded context and we should group this bounded context with responsibilities clearly defined
+
+<img src="./Images/ddd.png">
