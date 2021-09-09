@@ -412,3 +412,9 @@ or
 * gRPC project > Http2, proto file and service classes (API project> Http,controller class)
 * Discount CRUD gRPC
 * Consume Discount.Grpc from Basket.API
+
+# Consume Discount.Grpc(server) in Basket.API(client)
+
+- right click Basket.API>Add> Connected service> Add reference gRPC>gRPC>select .proto file in Discount.Grpc, Class Type:Client Only
+
+* test this using Basket.API POST call (update basket) using debugger in both projects(updateBasket()|GetDiscount())
