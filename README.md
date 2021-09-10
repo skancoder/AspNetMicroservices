@@ -492,3 +492,78 @@ a design principle for separating a computer program into distinct sections, suc
 4. Bounded context: recommanded for complex systems which may conatain subdomains within a domain. ex: eCommerce application> Bounded context should be Order Management, Customer management, Stock management, delivery management, Payment System management,Product management, User management,.. many subdomains. these sudomains are grouped. Bounded context refers to stucture in which group of individuals most logically associated with each other in terms of rules of the aggregate root and group toogether and responsibility of the group are clearly defined. Ie, when we combine subdomains, it will reach bounded context and we should group this bounded context with responsibilities clearly defined
 
 <img src="./Images/ddd.png">
+
+## Clean Architecture (Onion Architecture,Hexagonal Architecture)
+
+- Ports and adaptors pattern
+
+1. Framework independence: architecture is decoupled from 3rd party frameworks.
+2. Testability: architecture is easy to write unit tests
+3. UI independance: architecture can be unplugged from UI
+4. Database independance: architecture is decoupled from underlying datastore, databases
+5. External agency independance: Business rules of the architecture are isolated and know nothing about outside world
+
+<img src="./Images/ca.png">
+<img src="./Images/ca2.png">
+
+- Domain principle is a depencdency rule.like DIP, source code dependencies should only points inwards(inner arrows in concentric circles).
+
+* inner circle cannot know anything about outer circle.only implemtations of those abstractions will become external outer layers.
+* Core and Periphery layer follow DIP. ie, inside layers work with abstractions.actual implementaion lies in outside layer
+* Application layer works on interfaces and business logic.interfaces implemented in outside layer.
+
+## CQRS (Command Query Responsility Segregation) Design pattern
+
+- separation of commands and query responsibility
+
+* idea is to separate interfaces between the operations that read the data and operations that update the data. separation of business models
+* commands - command handlers
+* query - query handlers
+  <img src="./Images/cqrs.jpg">
+
+## Eventual Consistent
+
+- all models in consistent systems are stored consistently without interruption but in eventual consistent systems, the models amy be inconsistent ofr a while as a result of writing and updating processes. This situation is finally resolved and system id eventually be consistent.
+
+* Inconsistant for a while
+* this syatem is developed using CQRS pattern. The write and update requests from the client are trasmitted to existing services on the system with write model. If the request is processed, the necessary changes are made to reading model. When the user queries the data, the services answer the request with reading model. CQRS is the updating of reading model with asynchronous processes after the writing model is registered. in CQRS 2 databses are separated by RabbitMQ asynchronous process.so eventually consistent data
+* Systems developed with CQRS design patterns are eventual consistent systems.
+* in CQRS reading and writing operations do not wait for each other.therefore CQRS is performant
+* Asynchronous process
+* No transactional dependency
+
+## Event Sourcing
+
+https://medium.com/aspnetrun/cqrs-and-event-sourcing-in-event-driven-architecture-of-ordering-microservices-fb67dc44da7a
+
+  <img src="./Images/eventsourcing.png">
+
+- Accumulating Events
+- Assets are not recorded
+- Events recording
+- generating state from events
+
+* event sourcing is a method that shaped on idea of accumulating events that took place in the system. Objects that have an identity are called entities.In this system, the latest status of the assets are not recorded instead events affecting the state of the assets are recorded. ie, we store events not assets.
+* when the query is sent by client and final status of asset is requested, the system combines the existing event information and provides client with necessary information.
+* we can perform eventual consistent through this systems
+
+## CQRS and Event Sourcing
+
+  <img src="./Images/cqrs2.png">
+
+# ordering.API
+
+CQRS and DDD
+
+- Core Layers
+
+  - Ordering.Domain layer
+  - Ordering.Application layer
+
+- Periphery layers
+  - Ordering.API layer
+  - Ordering.Infrastructure layer
+
+* Application layer dependa on domain layer
+* https://github.com/jasontaylordev/CleanArchitecture
+* https://www.pluralsight.com/courses/microservices-communication-asp-dot-net-core
