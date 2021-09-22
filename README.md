@@ -567,3 +567,29 @@ CQRS and DDD
 * Application layer dependa on domain layer
 * https://github.com/jasontaylordev/CleanArchitecture
 * https://www.pluralsight.com/courses/microservices-communication-asp-dot-net-core
+
+## Mediator Design Pattern
+
+<img src="./Images/mediatorPattern.png">
+
+## MediatR Nuget package, Pipeline lifecycle
+
+<img src="./Images/mediatrNuget.png">
+
+## MediatR Pipeline behavior
+
+validation pipeline behaviour using Fluent Validation Nuget
+
+<img src="./Images/mediatrNuget2.png">
+
+## CQRS
+
+<img src="./Images/cqrs3.png">
+
+## EFCore Migration
+
+- add migration in Ordering.Infrastructure project
+  > Add-Migration InitialCreate
+
+* this creates migration classes folder
+* when you run all docker-compose file, the containers should create their own databases and their own data for it to work.so, on app startup migrate SQL Server database (create Order DB, create order table with few records). do this migration in program.cs

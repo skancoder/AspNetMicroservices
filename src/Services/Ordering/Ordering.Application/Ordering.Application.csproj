@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!--this layer is for Business uses cases, Busuness validations,.... CQRS implementaion.
+	this projects have applications contracts,features,behaviours
+	Contracts folder> includes interfaces for abstract usecase implmentaion. all abstracts & interfaces stay here.
+	Features folder> applys CQRS design pattern for handling business usecases.create subfolders according to usecase definition.heart of application with CQRS.
+	Behavious folder> responsible for app behaviours that apply when performing usecase implementations.eg: vaidation behaviour, logging behaviours,cross cutting conserns,...
+	Mapping folder> to map domain objects with application objects
+	-->
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+	<!--Application layer depends on domain layer-->
+  <ItemGroup>
+    <ProjectReference Include="..\Ordering.Domain\Ordering.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+	<PackageReference Include="FluentValidation" Version="9.5.1" />
+	<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.5.1" />
+	<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+	
+
+</Project>
