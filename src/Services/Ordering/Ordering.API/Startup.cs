@@ -35,6 +35,9 @@ namespace Ordering.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordering.API", Version = "v1" });
             });
+
+            Console.WriteLine(Configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

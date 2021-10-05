@@ -593,3 +593,17 @@ validation pipeline behaviour using Fluent Validation Nuget
 
 * this creates migration classes folder
 * when you run all docker-compose file, the containers should create their own databases and their own data for it to work.so, on app startup migrate SQL Server database (create Order DB, create order table with few records). do this migration in program.cs
+
+## SQL Server Doker
+
+https://hub.docker.com/_/microsoft-mssql-server
+
+- write orderdb image & configuration in docker-compose and run docker up
+
+> docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d
+
+> docker ps
+
+- Note: if the migration throws error "Login failed for user 'sa'" then this may be due to server name. use '[::1]' instead of 'localhost'
+
+* If localhost doesn’t work, try use [::1] in the server name. In WSL2, port 1433 is using IP/TCPv6, SSMS some times is not able to resolve localhost to loopback IP [::1].

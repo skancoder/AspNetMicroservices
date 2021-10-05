@@ -10,6 +10,9 @@ services:
   discountdb:
     image: postgres #official image name >docker pull postgres 
 
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
   pgadmin:
     image: dpage/pgadmin4 #official image name from dockerHub. this is management tool for postgres sql
 
