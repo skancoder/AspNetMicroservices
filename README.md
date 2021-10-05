@@ -672,3 +672,16 @@ http://localhost:8004/swagger/index.html
 
 4. Header Exchange
    <img src="./Images/rabbitmq8.png">
+
+## RabbitMQ docker
+
+- https://hub.docker.com/_/rabbitmq
+- goto docker desktop>settings>recouces>advance
+  set memory limits according to requirements in the document memory limits.(no avilable for wsl2)
+
+* eg: cpu:2, memory:4gb, swap:1gb, disk image size:60gb
+* add images to docker-compose yml and its override file and run docker up
+
+  > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d
+
+* open http://localhost:15672 (guest|guest)
