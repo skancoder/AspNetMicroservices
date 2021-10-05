@@ -615,3 +615,60 @@ https://hub.docker.com/_/microsoft-mssql-server
 http://localhost:8004/swagger/index.html
 
 - do order CRUD. check db and portainer logs
+
+# Microservices Async Communication with RabbitMQ and MassTransit
+
+- for checkout order usecase between Basket and ordering Microservices
+
+## Pub/Sub RabbitMQ Architecture
+
+<img src="./Images/rabbitmq.png">
+
+## Publisher/Subscriber of BasketCheckout Event with Basket and ordering Microservices
+
+<img src="./Images/rabbitmq2.png">
+
+# Microservices Communication Types
+
+<img src="./Images/rabbitmq3.png">
+1. Request-Driven architechture > req/res based approach. services communication using HTTP or gRPC. Mostly done using RESTful API calls.
+
+- beneifit> clear control of flow. easy to determine sequence of actions.
+- tradeoffs> if one of dependent services is down, there is a high change to exclude class to other services. this brokes the request.
+
+2. Event-Driven architecture> here microservices dont call each other, instead they creates events and consumes event from message broker in async way.
+
+- benefits> prodcer services and consumer services doesnt know each other. so services can be deployed and maintained independently. loosly coupled microservices.
+- tradeoffs> there is no clear central place or orchestrator defining the whole flow.
+
+3. Hybrid architecture> means depending on custom scenario, you can pick one of the above two communications (eg: this project)
+
+## RabbitMQ
+
+- Message Queue system
+- Event-Driven Architechture
+- others: Apache kafka, Msmq, Azure service bus, ActiveMQ
+  <img src="./Images/rabbitmq4.png">
+
+* Terms:
+  - Name> name of the queue
+  - Durable> 'true' for persistance.which uses in-memory. in this case queue will be deleted when the broker restart.
+  - Exclusive> whether queue will be used with other connections
+  - Autodelete> information about deletion of the queue with data sent to the queue passes to the consumer side.
+
+### RabbitMQ Exchange Types
+
+1. Direct Exchange
+   <img src="./Images/rabbitmq5.png">
+2. Fanout Exchange ( publish-subscribe pattern)
+   <img src="./Images/rabbitmq6.png">
+3. Topic Exchange
+   <img src="./Images/rabbitmq7.png">
+
+   - (“\*”)> to match a word in a specific position of the routing key
+   - (“#”)> to match zero or more words
+
+   * For example, a message published with a routing key of “honda.civic.navy” would match queues bound with “honda.civic.navy”, “_.civic._”, “honda.#”, or “#”, but would not match “honda.accord.navy”, “honda.accord.silver”, “_.accord._”, or “ford.#”.
+
+4. Header Exchange
+   <img src="./Images/rabbitmq8.png">
