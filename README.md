@@ -607,3 +607,11 @@ https://hub.docker.com/_/microsoft-mssql-server
 - Note: if the migration throws error "Login failed for user 'sa'" then this may be due to server name. use '[::1]' instead of 'localhost'
 
 * If localhost doesn’t work, try use [::1] in the server name. In WSL2, port 1433 is using IP/TCPv6, SSMS some times is not able to resolve localhost to loopback IP [::1].
+
+## create docker file for Odering API
+
+- create docker file in API project and edit docker-compose file and run docker up
+
+http://localhost:8004/swagger/index.html
+
+- do order CRUD. check db and portainer logs

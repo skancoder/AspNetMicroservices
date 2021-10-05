@@ -43,9 +43,16 @@ services:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
 
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.API/Dockerfile
+
 volumes: #volume definitions
   mongo_data:       #check https://hub.docker.com/_/mongo>   docker run --name some-mongo -v /my/own/datadir:/data/db -d mongo    >for moving database records to filesystem directory
   portainer_data:
   postgres_data:
   pgadmin_data:
+
 
