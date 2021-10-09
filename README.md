@@ -707,3 +707,7 @@ http://localhost:8004/swagger/index.html
 - Windows 10 thinks localhost is ::1.
 - Ubuntu thinks localhost is 127.0.0.1
   if "amqp://guest:guest@localhost:5672" doesn't work for rabbitmq in local wsl2 , use "amqp://guest:guest@[::1]:5672"
+
+### test
+
+- start Basket.API, Discount.Grpc,Ordering.API
