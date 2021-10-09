@@ -685,3 +685,25 @@ http://localhost:8004/swagger/index.html
   > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d
 
 * open http://localhost:15672 (guest|guest)
+
+## BuildingBlocks folder
+
+- for cross-cutting conserns between microservices
+
+* if any services need for few microservices, keep those in this folder (Eg: event bus message is used between basket and ordering MS)
+
+### Events from Basket MS consumed by Ordering MS
+
+- add reference to EventBus.Messages.csproj from Basket.API and change docker file accordingly
+
+### Testing Basket.API Checkout event
+
+- run both Basket API and discount gRPC.
+- create new basket using UpdateBasket endpoint
+- hit checkout api to send event to broker
+
+## Note:
+
+- Windows 10 thinks localhost is ::1.
+- Ubuntu thinks localhost is 127.0.0.1
+  if "amqp://guest:guest@localhost:5672" doesn't work for rabbitmq in local wsl2 , use "amqp://guest:guest@[::1]:5672"

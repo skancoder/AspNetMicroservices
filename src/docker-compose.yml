@@ -8,7 +8,7 @@ services:
     image: redis:alpine #alpine is lightweight version of redis
   
   discountdb:
-    image: postgres #official image name >docker pull postgres 
+    image: postgres:13.4-alpine #postgres #official image name >docker pull postgres 
 
   orderdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
