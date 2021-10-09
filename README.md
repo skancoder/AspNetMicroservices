@@ -711,3 +711,21 @@ http://localhost:8004/swagger/index.html
 ### test
 
 - start Basket.API, Discount.Grpc,Ordering.API
+- create Basket at Basket.API basket postcall
+- check created basket at Basket.API get call
+- checkout basket at Basket.API checkout postcall.publishes message
+- check rabbitmq for message publish and consume
+- check order by username at Order.API get call to view the order made
+
+### Note
+
+- MASSTRANSIT has built-in retry mechanism. if the broker fails to connect it keeps retry with console warning and it automatically connects if the broker is back on. so retry code needed.
+
+## Dockerize Rabbitmq
+
+- recreate docker file in Basket.API and ordering.api as reference to buildingBlocks are added
+
+> docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml down
+
+- rebuild for new docker files
+  > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up --build
