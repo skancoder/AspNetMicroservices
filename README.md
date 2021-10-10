@@ -729,3 +729,92 @@ http://localhost:8004/swagger/index.html
 
 - rebuild for new docker files
   > docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up --build
+
+# API Gateway with OCELET and Apply Gateway routing pattern
+
+## Gateway routing pattern
+
+- Routing, Data Aggregator,Protocol Abstraction,Centralized error management
+
+* objective is to route request to multiple services using single endpoint
+* this pattern is useful to expose multiple services on single endpoint and route to appropriate service based on request
+* when client needs to consume multiple services and setting a separate endpoint for each service and having client to manage each endpoint can be challenging.
+
+- eg: e-commerce application have sevices like search,reveiws,cart,checkout,order history.As a solution , place a gateway in front of set of applications,services or deployments and use application layer 7 routing to route the request to appropriate instances.so, client application communicates to only single endpoint.
+- if the service is consolidated or decomposed , then the client doesn't nessessarily require updating.
+
+## API Gateway pattern
+
+- Reverse proxy, Gateway routing, Requests aggregation, Cross-cutting concerns or gateway offloading,Load balancing,Protection from attacks,Global Server Load Balancing (GSLB) ,Caching,SSL encryption
+  https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/
+
+* it provides single entry pattern for a group of microservices
+* it is similar to FACADE pattern from object-oriented design.but this is Dtstributed System Design
+* API Gateway pattern also called "backend for frontend" (BFF) because you build it while thinking th needs of client app. so, it is between client app and microcervices.
+* Its acts as a Reverse proxy , routing requests from clients to microservices.
+* it provides cross-cutting features like authentication,SSL termination and cache,..
+* API Gateway implemeted as cutom ASP.NET Core WebHost service
+* don't have single API Gateway aggregating all internal microservices of application. if it does, it acts as monolitic aggregator or orchestrator and violates microservices autonomy by coupling all the microservices
+* API gateways should be segregated based on business boundry and client apps , not as a single aggregator for all
+
+## Multiple API Gateways (Backend for frontend)
+
+ <img src="./Images/apigateway.png">
+
+## API Gateway pattern features (ocelot features)
+
+- Routing
+- Request aggregation
+- service discovery with Consul & Eureka
+- Load Balancing
+- Correlation pass-through
+- Quality of service
+- Authentication
+- Authorization
+- Throttling
+- Logging, Tracing
+- Headers / Query string transformation
+- Custom middleware
+
+## Ocelot API gateway
+
+- lightweight, .netcore, fast, scalable, open source
+  <img src="./Images/apigateway2.png">
+
+## Authentication and Authorization using Ocelot API Gateway (Identity microservice)
+
+  <img src="./Images/apigateway3.png">
+  <img src="./Images/apigateway4.png">
+
+## Analysis and Design of API gateway
+
+| method   | Request URI      | use case                   |
+| -------- | ---------------- | -------------------------- |
+| GET/POST | /catalog         | Route /api/v1/Catalog apis |
+| GET      | /catalog/{id}    | Route /api/v1/Catalog apis |
+| GET/POST | /Basket          | Basket /api/v1/Basket apis |
+| POST     | /Basket/Checkout | Basket /api/v1/Basket apis |
+| GET      | /Order           | Order /api/v1/Order apis   |
+
+---
+
+- OcelotApiGw > ASP.NET Core empty project (uncheck https)
+
+* to separate local environment and docker environment(ASPNETCORE_ENVIRONMENT=Development) , create tiddy ocelot json config file
+
+* https://ocelot.readthedocs.io/en/latest/features/configuration.html
+* downstream configurations > belongs to internal microservices
+* upstream configurations > belongs to exposing APIs from API gateway for client app
+* GlobalConfiguration > gateway base url
+* run ocelot project in with ASPNETCORE_ENVIRONMENT=Local
+
+http://localhost:8000/swagger/index.html >catalog
+http://localhost:8001/swagger/index.html >basket
+http://localhost:8002/swagger/index.html >discount
+http://localhost:8004/swagger/index.html >ordering
+
+can be accessed from port 5010 api gateway
+
+http://localhost:5010/catalog
+
+url redirection logs are showed in console
