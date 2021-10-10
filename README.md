@@ -826,3 +826,7 @@ url redirection logs are showed in console
 ## Response caching
 
 - https://ocelot.readthedocs.io/en/latest/features/caching.html
+
+## Dockerise Ocelot
+
+- check http://localhost:8010/catalog get call
