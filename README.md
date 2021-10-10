@@ -830,3 +830,26 @@ url redirection logs are showed in console
 ## Dockerise Ocelot
 
 - check http://localhost:8010/catalog get call
+
+# Gateway Aggregation Pattern
+
+<img src="./Images/gap3.png">
+
+- using gateway to aggregate multiple individual requests into single request.
+- this pattern id useful when a client must make multiple calls to different backend systems to perform operation.
+- single request
+- Multiple calls to different backend systems
+- Dispatches requests to various backend systems
+- reduce the chattiness between the client and services
+
+  <img src="./Images/gatewayAggregation.png">
+
+* choose Gateway Aggregation Pattern and avoid
+  - direct synchronous communication
+    <img src="./Images/gap.png">
+  - chaining of http calls (anti-pattern)
+    <img src="./Images/gap2.png">
+
+### architecture of aggregator pattern
+
+<img src="./Images/gap4.png">
