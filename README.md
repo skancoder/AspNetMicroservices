@@ -818,3 +818,11 @@ can be accessed from port 5010 api gateway
 http://localhost:5010/catalog
 
 url redirection logs are showed in console
+
+## Ratelimiting
+
+- https://ocelot.readthedocs.io/en/latest/features/ratelimiting.html
+
+## Response caching
+
+- https://ocelot.readthedocs.io/en/latest/features/caching.html

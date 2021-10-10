@@ -13,7 +13,7 @@
       ],
       "UpstreamPathTemplate": "/Catalog", //http://localhost:5010/Catalog redirects to http://localhost:8000/api/v1/Catalog
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ], //acceptable verbs
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "FileCacheOptions": { "TtlSeconds": 30 } //Response caching https://ocelot.readthedocs.io/en/latest/features/caching.html
       //"RateLimitOptions": { //https://ocelot.readthedocs.io/en/latest/features/ratelimiting.html
       //  "ClientWhitelist": [],
       //  "EnableRateLimiting": true,
