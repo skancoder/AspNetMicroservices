@@ -853,3 +853,21 @@ url redirection logs are showed in console
 ### architecture of aggregator pattern
 
 <img src="./Images/gap4.png">
+
+# Securing Microservices with IdentityServer4 and Ocelet
+
+<img src="./Images/auth.png">
+<img src="./Images/auth2.png">
+<img src="./Images/auth3.png">
+
+# Cross-cutting Concerns -Microservices observability with distributed logging and Heath Monitoring, Resilient and Fault Tolerance using polly
+
+- WebStatus Health Checks - watchdog
+- Elastic Stack > Elastic search + logstash + kibana
+- serilog
+- polly policies > Heath Monitoring, Resilient and Fault Tolerance, retries
+
+# Deploying .Net Microservices into Kubernetes and CI/CD Azure DevOps
+
+<img src="./Images/aks.png">
+<img src="./Images/aks2.png">
