@@ -10,6 +10,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Polly;
 using Polly.Extensions.Http;
+using Serilog;
 using System;
 using System.Net.Http;
 
@@ -31,15 +32,22 @@ namespace AspnetRunBasics
 
             services.AddHttpClient<ICatalogService, CatalogService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-                .AddHttpMessageHandler<LoggingDelegatingHandler>();//custom message handler for logging
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()//custom message handler for logging
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
+            //for test stopr and start catalog.api in portainer
 
             services.AddHttpClient<IBasketService, BasketService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-                .AddHttpMessageHandler<LoggingDelegatingHandler>();
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
 
             services.AddHttpClient<IOrderService, OrderService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
-                .AddHttpMessageHandler<LoggingDelegatingHandler>();
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
 
             services.AddRazorPages();
 
@@ -79,9 +87,10 @@ namespace AspnetRunBasics
             });
         }
 
+        //---------------------------------------------------------------------------------------------------
         private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
         {
-            // In this case will wait for
+            // In this case will wait for exponential waittime
             //  2 ^ 1 = 2 seconds then
             //  2 ^ 2 = 4 seconds then
             //  2 ^ 3 = 8 seconds then
@@ -95,7 +104,7 @@ namespace AspnetRunBasics
                     sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                     onRetry: (exception, retryCount, context) =>
                     {
-                       // Log.Error($"Retry {retryCount} of {context.PolicyKey} at {context.OperationKey}, due to: {exception}.");
+                        Log.Error($"Retry {retryCount} of {context.PolicyKey} at {context.OperationKey}, due to: {exception}.");
                     });
         }
 
