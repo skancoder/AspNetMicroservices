@@ -21,7 +21,10 @@ namespace AspnetRunBasics.Services
 
         public async Task<IEnumerable<CatalogModel>> GetCatalog()
         {
-            _logger.LogDebug("Getting Catalog Products from url:{url}",_client.BaseAddress);
+           // _logger.LogDebug("Getting Catalog Products from url:{url}",_client.BaseAddress);
+            _logger.LogInformation("Getting Catalog Products from url:{url} and customProperty:{customProperty}", _client.BaseAddress,1234);
+            //this creates fields.url, fields.customProperty in Elasticsearch index "applogs-"
+
             try
             {
                 var response = await _client.GetAsync("/Catalog");

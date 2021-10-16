@@ -70,11 +70,24 @@ services:
       context: .
       dockerfile: WebApps/WebUi/Dockerfile
 
+  elasticsearch:
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+
+  kibana:
+   image: docker.elastic.co/kibana/kibana:7.9.2
+
+# elasticsearch and kibana should be under same network. default bridge network can communicate eachother.
+
+  #networks:
+  #  elastic:
+  #    driver: bridge #default
+
 volumes: #volume definitions
   mongo_data:       #check https://hub.docker.com/_/mongo>   docker run --name some-mongo -v /my/own/datadir:/data/db -d mongo    >for moving database records to filesystem directory
   portainer_data:
   postgres_data:
   pgadmin_data:
+  elasticsearch-data:
 
 
 

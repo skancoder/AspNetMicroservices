@@ -968,3 +968,28 @@ monitoring can aslo be done in clusters.example kubernetes has Liveness and Read
 
 * LogLevels> Trace = 0, Debug = 1, Information = 2, Warning = 3, Error = 4, Critical = 5, and None = 6.
 * "Microsoft": "Warning" // means it covers log Warning and higher.
+
+## Dockerize Elasticsearch & kibana
+
+https://github.com/thecarlo/elastic-kibana-netcore-serilog/blob/master/src/docker/docker-compose.yml
+
+- add Elasticserach and kibana in docker-compose
+- open http://localhost:9200 and http://localhost:9200/\_aliases to check for Elasticsearch
+
+* http://localhost:5601/app/home >kibana
+* increase memory of docker >4gb memory if kibana not showing
+* kibana can run RESTful APIs over Elasticsearch.(kibana>management>devtools)
+* eg:
+
+  > GET products/\_search { }
+
+  > POST /products/\_doc { "name" : "iphone_y" }
+
+* this is not needed for just distributed logging in kibana>discover
+* after configuring elasticsearch and kibana in client app. got to kibana>connect to your elasticsearch index>create index pattern
+
+  - this shows "applogs-aspnetrunbasics-development-logs-2021-10" index pattern in list
+
+type "applogs-\*" index pattern name so it can coonect to all microservices start with "applogs-" > Nest step > @timestamp > Create
+
+- goto kibana > discover to see logs
