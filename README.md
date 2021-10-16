@@ -995,3 +995,71 @@ type "applogs-\*" index pattern name so it can coonect to all microservices star
 - goto kibana > discover to see logs
 
 * Logging delegate message handler >https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers
+
+* After adding serilog + elasticsearch in all projects, recreate docker files for all projects
+
+> docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up --build
+
+## Microservices Resilient and Fault Tolerance with using Polly
+
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/handle-partial-failure
+
+#### Polly Policies
+
+- Retry, Circuit-breaker, Timeout, Bulkhead Isolation, Cache, Fallback, PolicyWrap
+
+1. Retry pattern
+   <img src="./Images/ds4.png">
+
+2. Circuit breaker pattern
+   https://www.gokhan-gokalp.com/en/resiliency-patterns-in-microservice-architecture/
+   <img src="./Images/ds9.gif">
+   <img src="./Images/ds5.png">
+
+   Retry + Circuit breaker pattern
+   <img src="./Images/ds10.jpeg">
+
+3. BulkHead Pattern
+
+   <img src="./Images/ds11.png">
+   <img src="./Images/ds12.jpg">
+   eg: if service A not responding due to bug and after a while users requests starts to accumulate in a queue.so it will use all cpu threads of the machine.so service B also becomes slow and waiting due to serve A bug. Remedy: set resource limits
+
+## Order of Resilience Patterns
+
+   <img src="./Images/ds13.png">
+
+- polly policies using IHTTPClientFatory
+
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+
+implementation
+https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory
+
+# URLs
+
+Catalog API -> http://host.docker.internal:8000/swagger/index.html
+
+Basket API -> http://host.docker.internal:8001/swagger/index.html
+
+Discount API -> http://host.docker.internal:8002/swagger/index.html
+
+Ordering API -> http://host.docker.internal:8004/swagger/index.html
+
+Shopping.Aggregator -> http://host.docker.internal:8005/swagger/index.html
+
+API Gateway -> http://host.docker.internal:8010/Catalog
+
+Rabbit Management Dashboard -> http://host.docker.internal:15672 -- guest/guest
+
+Portainer -> http://host.docker.internal:9000 -- admin/admin1234
+
+pgAdmin PostgreSQL -> http://host.docker.internal:5050 -- admin@aspnetrun.com/admin1234
+
+Elasticsearch -> http://host.docker.internal:9200
+
+Kibana -> http://host.docker.internal:5601
+
+Web Status -> http://host.docker.internal:8007
+
+Web UI -> http://host.docker.internal:8006
