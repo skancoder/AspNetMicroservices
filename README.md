@@ -959,3 +959,12 @@ monitoring can aslo be done in clusters.example kubernetes has Liveness and Read
 * ElasticSearch makes a any kind of logging easy , accessible and searchable using simple query language coupled by kibana interface. Popular for distributed logging in Microservices
 
 - with .net, use serilog Elasticsearch sink
+
+## Logging
+
+- simple log on client side catalog service.
+- ASP.NET have default logs logged in console for HTTP requests
+- https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0
+
+* LogLevels> Trace = 0, Debug = 1, Information = 2, Warning = 3, Error = 4, Critical = 5, and None = 6.
+* "Microsoft": "Warning" // means it covers log Warning and higher.
