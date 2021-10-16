@@ -993,3 +993,5 @@ https://github.com/thecarlo/elastic-kibana-netcore-serilog/blob/master/src/docke
 type "applogs-\*" index pattern name so it can coonect to all microservices start with "applogs-" > Nest step > @timestamp > Create
 
 - goto kibana > discover to see logs
+
+* Logging delegate message handler >https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/http-message-handlers
