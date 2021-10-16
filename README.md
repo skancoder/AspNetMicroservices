@@ -871,3 +871,91 @@ url redirection logs are showed in console
 
 <img src="./Images/aks.png">
 <img src="./Images/aks2.png">
+
+---
+
+---
+
+---
+
+---
+
+# Microservices Observability with Distributed Logging, Health Monitoring, Resilient and Fault Tolerance with using Polly
+
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/handle-partial-failure
+
+<img src="./Images/ds1.png">
+* microsevice based applications are distributed systems.
+* they are easy to scale and manage sources but increase in interations between services cause problems
+* incase of network or container failures microservices must have srategy to retry again
+<img src="./Images/ds2.png">
+<img src="./Images/ds3.png">
+* machine running microservice fails or service might not respond in timely way to requests or overloaded or network issues. to avoid this MS should be designed with resilient to failures and must accept partial failures
+
+## Application resiliency patterns
+
+https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/application-resiliency-patterns
+
+| Policy          | Experience                                                                                        |
+| --------------- | ------------------------------------------------------------------------------------------------- |
+| Retry           | Configures retry operations on designated operations.                                             |
+| Circuit Breaker | Blocks requested operations for a predefined period when faults exceed a configured threshold     |
+| Timeout         | Places limit on the duration for which a caller can wait for a response.                          |
+| Bulkhead        | Constrains actions to fixed-size resource pool to prevent failing calls from swamping a resource. |
+| Cache           | Stores responses automatically.                                                                   |
+| Fallback        | Defines structured behavior upon a failure.                                                       |
+
+| HTTP Status Code | Cause                                                 |
+| ---------------- | ----------------------------------------------------- |
+| 404              | Not Found                                             |
+| 408              | Request timeout                                       |
+| 429              | Too many requests (you've most likely been throttled) |
+| 502              | Bad gateway                                           |
+| 503              | Service unavailable                                   |
+| 504              | Gateway timeout                                       |
+
+1. Retry pattern
+   <img src="./Images/ds4.png">
+
+2. Circuit breaker pattern
+   <img src="./Images/ds5.png">
+
+## Observability Pattern
+
+https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/observability-patterns
+
+distributed logging
+<img src="./Images/ds6.png">
+
+microservices monitoring with health monitoring.
+monitoring can aslo be done in clusters.example kubernetes has Liveness and Readiness probes.
+<img src="./Images/ds7.png">
+
+## Microservices Cross-cutting concerns (4 pillers)
+
+1. Microservices Observability with Distributed logging (Elastic stack > elasticsearch + logstach + kibana + serilog )
+2. Microservices Resilience and fault tolerance with appling Retry and Cirtuit-breaker patterns using Polly
+3. Microservices Monitoring with Health checks using watchdog (includes database,redis,rabbitmq avaiilabilities)
+4. Microservices distributed Tracing with openTelemetry using Zipkin
+
+## Elastic Search
+
+- Distributed Open-source search and analytics engine. for securitiy and alert features kibana, buy commerial pack.
+- Built on java Apache Lucene released in 2010
+- Full text search search engine.used for content search,data analysis, queries and suggestions.
+- Indexing logs and analytical data
+
+* Elastic search has restful api. query results returned in json format.
+* Easy to query, very fast, scalable (docker)
+
+## Kibana
+
+- Open source data visualization and user interface for elastic search.
+- Elasticsearch is like database and Kibana as the web UI that can be used to create graphs, queries , indexes in Elasticsearch
+
+* it provides search and visualization capabilities for data indexes in Elasticsearch
+
+<img src="./Images/ds8.png">
+* ElasticSearch makes a any kind of logging easy , accessible and searchable using simple query language coupled by kibana interface. Popular for distributed logging in Microservices
+
+- with .net, use serilog Elasticsearch sink
