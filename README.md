@@ -948,6 +948,8 @@ monitoring can aslo be done in clusters.example kubernetes has Liveness and Read
 * Elastic search has restful api. query results returned in json format.
 * Easy to query, very fast, scalable (docker)
 
+* distributed logging can also be done by elastic or datalust seq
+
 ## Kibana
 
 - Open source data visualization and user interface for elastic search.
@@ -1056,6 +1058,25 @@ https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
 https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/monitor-app-health
 
 catalog.api healthcheck> http://localhost:5000/hc
+
+### Create ASP.NET CORE MVC for Centralized Health check watchdog dashboard
+
+https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks/blob/master/src/HealthChecks.UI/Configuration/Options.cs
+
+http://host.docker.internal:8007/healthchecks-ui#/healthchecks
+
+# Microservices Tracing with OpenTelemtry using zipkin
+
+- https://devblogs.microsoft.com/aspnet/monitoring-and-observability-in-cloud-native-asp-net-core-apps/
+
+- https://devblogs.microsoft.com/aspnet/improvements-in-net-core-3-0-for-troubleshooting-and-monitoring-distributed-apps/
+
+* open Telemetry = open tracing & open censes
+* open Telemetry> language agnostics
+* Anatomy of Trace
+  - Trace- end-to-end request tracing
+  - sapn- unique spanid, parent id, labels
+* zipkin alternative azure monitor
 
 # URLs
 
