@@ -35,8 +35,12 @@ namespace Ordering.API.Extensions
 
                     //if the sql server container is not created on run docker compose this
                     //migration can't fail for network related exception. The retry options for DbContext only 
-                    //apply to transient exceptions                    
+                    //apply to transient exceptions
+
+                    //InvokeSeeder(seeder, context, services)
+
                     retry.Execute(() => InvokeSeeder(seeder, context, services));
+                    //test using stop ans start of orderdb
 
                     logger.LogInformation("Migrated database associated with context {DbContextName}", typeof(TContext).Name);
                 }

@@ -32,7 +32,11 @@ namespace Discount.API.Extensions
                     //if the postgresql server container is not created on run docker compose this
                     //migration can't fail for network related exception. The retry options for database operations
                     //apply to transient exceptions                    
+                    //ExecuteMigrations(configuration)
+
                     retry.Execute(() => ExecuteMigrations(configuration));
+                    //test using stop and start of discountdb
+
                     logger.LogInformation("Migrated postresql database.");
                 }
                 catch (Exception ex)
