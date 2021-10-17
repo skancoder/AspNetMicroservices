@@ -1036,6 +1036,25 @@ https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-res
 implementation
 https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory
 
+# Microservices Health Monitoring using Watchdog
+
+- kubernetes has Liveness and Readiness probes to take health information to orchestrating clusters and act accordingly
+
+* .Net Health check watchdog
+* health monitoring is critical.it could cause revenue loss,cutomer confidence and negative effects.
+* Notifed to customers about outages beforehand
+* status page to view results
+
+### Health Status
+
+1. Healthy
+2. unhealthy
+3. degraded
+
+https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+
+catalog.api healthcheck> http://localhost:5000/hc
+
 # URLs
 
 Catalog API -> http://host.docker.internal:8000/swagger/index.html

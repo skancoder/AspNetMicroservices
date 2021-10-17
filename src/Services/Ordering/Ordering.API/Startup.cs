@@ -15,6 +15,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventBus.Messages.Common;
 using Ordering.API.EventBusConsumer;
+using Ordering.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 namespace Ordering.API
 {
@@ -40,7 +43,7 @@ namespace Ordering.API
 
                 config.UsingRabbitMq((ctx, cfg) => {
                     cfg.Host(Configuration["EventBusSettings:HostAddress"]);
-                    //cfg.UseHealthCheck(ctx);
+                    cfg.UseHealthCheck(ctx);//Health check
 
                     cfg.ReceiveEndpoint(queueName: EventBusConstants.BasketCheckoutQueue, c =>
                     {
@@ -63,6 +66,11 @@ namespace Ordering.API
 
             Console.WriteLine(Configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
+            //Health check
+            services.AddHealthChecks()
+                   .AddDbContextCheck<OrderContext>();
+            //test using stop and start of orderdb, rabbitmq
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +90,11 @@ namespace Ordering.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
             });
         }
     }
