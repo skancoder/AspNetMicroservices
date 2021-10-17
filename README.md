@@ -1053,6 +1053,8 @@ https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory
 
 https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
 
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/monitor-app-health
+
 catalog.api healthcheck> http://localhost:5000/hc
 
 # URLs
