@@ -51,8 +51,10 @@ namespace AspnetRunBasics
 
             services.AddRazorPages();
 
+            //Health check
             services.AddHealthChecks()
-                .AddUrlGroup(new Uri(Configuration["ApiSettings:GatewayAddress"]), "Ocelot API Gw", HealthStatus.Degraded);
+                 .AddUrlGroup(new Uri(Configuration["ApiSettings:GatewayAddress"]), "Ocelot API Gw", HealthStatus.Degraded);
+            //test using stop and start of ocelotgw
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
